@@ -15,79 +15,96 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
         }
         #root {
             min-height: 100vh;
         }
         .container {
-            max-width: 800px;
+            max-width: 1400px;
             margin: 0 auto;
-            background-color: #f5f5f5;
+            background-color: #1a1a1a;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .tab-bar {
-            display: flex;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .tab {
-            flex: 1;
-            padding: 16px;
-            text-align: center;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .tab:hover {
-            background-color: #f9f9f9;
-        }
-        .tab.active {
-            border-bottom-color: #2196F3;
-        }
-        .tab-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-        .content {
-            flex: 1;
             padding: 20px;
-            overflow-y: auto;
+        }
+        .header {
+            text-align: center;
+            padding: 32px 20px;
+            margin-bottom: 32px;
+        }
+        .app-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #64B5F6;
+            margin-bottom: 8px;
+        }
+        .app-subtitle {
+            font-size: 16px;
+            color: #9e9e9e;
+        }
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (min-width: 1200px) {
+            .main-content {
+                grid-template-columns: 500px 1fr;
+            }
         }
         .card {
-            background-color: #fff;
-            border-radius: 12px;
+            background-color: #242424;
+            border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+        }
+        .section {
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #64B5F6;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #333;
         }
         .title {
             font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: #e0e0e0;
             margin-bottom: 8px;
         }
         .subtitle {
             font-size: 14px;
-            color: #666;
+            color: #9e9e9e;
             margin-bottom: 24px;
         }
         .input {
             width: 100%;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #333;
             border-radius: 8px;
             padding: 16px;
             font-size: 16px;
             margin-bottom: 16px;
-            background-color: #fafafa;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
         .input:focus {
-            border-color: #2196F3;
+            border-color: #64B5F6;
+            background-color: #2a2a2a;
+        }
+        .input::placeholder {
+            color: #666;
         }
         .button {
             width: 100%;
@@ -119,34 +136,38 @@
         .button-save { background-color: #4CAF50; }
         .button-cancel { background-color: #999; }
         .task-card {
-            background-color: #fff;
+            background-color: #242424;
             border-radius: 16px;
             padding: 32px;
             width: 100%;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid #333;
             text-align: center;
         }
         .active-label {
             font-size: 12px;
             font-weight: 700;
-            color: #2196F3;
+            color: #64B5F6;
             letter-spacing: 1px;
             margin-bottom: 12px;
         }
         .task-name {
             font-size: 22px;
             font-weight: bold;
-            color: #333;
+            color: #e0e0e0;
             margin-bottom: 24px;
         }
         .timer {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: bold;
-            color: #2196F3;
+            color: #64B5F6;
             font-family: 'Courier New', monospace;
             margin-bottom: 8px;
+        }
+        @media (max-width: 767px) {
+            .timer {
+                font-size: 42px;
+            }
         }
         .status-indicator {
             width: 12px;
@@ -164,7 +185,7 @@
         }
         .status-text {
             font-size: 14px;
-            color: #666;
+            color: #9e9e9e;
             margin-bottom: 32px;
         }
         .button-group {
@@ -180,19 +201,25 @@
         }
         .empty-text {
             font-size: 18px;
-            color: #999;
+            color: #666;
             margin-bottom: 8px;
         }
         .empty-subtext {
             font-size: 14px;
-            color: #bbb;
+            color: #555;
         }
         .task-list-card {
-            background-color: #fff;
+            background-color: #2a2a2a;
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+            transition: all 0.2s;
+        }
+        .task-list-card:hover {
+            background-color: #303030;
+            border-color: #444;
         }
         .task-header {
             display: flex;
@@ -203,19 +230,19 @@
         .task-list-name {
             font-size: 18px;
             font-weight: 600;
-            color: #333;
+            color: #e0e0e0;
             flex: 1;
             margin-right: 12px;
         }
         .task-time {
             font-size: 20px;
             font-weight: bold;
-            color: #2196F3;
+            color: #64B5F6;
             font-family: 'Courier New', monospace;
         }
         .task-date {
             font-size: 13px;
-            color: #999;
+            color: #9e9e9e;
             margin-bottom: 12px;
         }
         .task-actions {
@@ -233,62 +260,81 @@
             cursor: pointer;
         }
         .total-card {
-            background-color: #2196F3;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 16px rgba(30, 136, 229, 0.3);
+            border: 1px solid #1976d2;
         }
         .total-label {
             font-size: 14px;
             color: #fff;
-            opacity: 0.9;
-            margin-bottom: 8px;
+            opacity: 0.95;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
         }
         .total-time {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: bold;
             color: #fff;
             font-family: 'Courier New', monospace;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .total-tasks {
-            font-size: 14px;
+            font-size: 15px;
             color: #fff;
-            opacity: 0.9;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        @media (max-width: 767px) {
+            .total-time {
+                font-size: 36px;
+            }
         }
         .toggle-container {
             display: flex;
-            background-color: #f0f0f0;
-            border-radius: 8px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
             padding: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            border: 1px solid #333;
         }
         .toggle-button {
             flex: 1;
-            padding: 10px 16px;
+            padding: 12px 16px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
-            color: #666;
+            color: #9e9e9e;
             background-color: transparent;
             cursor: pointer;
             transition: all 0.2s;
         }
+        .toggle-button:hover {
+            color: #e0e0e0;
+        }
         .toggle-button.active {
-            background-color: #2196F3;
+            background-color: #1976d2;
             color: #fff;
         }
         .period-card {
-            background-color: #fff;
+            background-color: #2a2a2a;
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+            transition: all 0.2s;
+        }
+        .period-card:hover {
+            background-color: #303030;
+            border-color: #444;
         }
         .period-header {
             display: flex;
@@ -299,17 +345,17 @@
         .period-title {
             font-size: 18px;
             font-weight: 600;
-            color: #333;
+            color: #e0e0e0;
         }
         .period-time {
             font-size: 20px;
             font-weight: bold;
-            color: #2196F3;
+            color: #64B5F6;
             font-family: 'Courier New', monospace;
         }
         .period-subtitle {
             font-size: 13px;
-            color: #999;
+            color: #9e9e9e;
             margin-bottom: 12px;
         }
         .tasks-list {
@@ -325,7 +371,7 @@
         }
         .task-item-name {
             font-size: 14px;
-            color: #666;
+            color: #b0b0b0;
             flex: 1;
             margin-right: 12px;
             white-space: nowrap;
@@ -335,7 +381,7 @@
         .task-item-time {
             font-size: 14px;
             font-weight: 600;
-            color: #666;
+            color: #9e9e9e;
             font-family: 'Courier New', monospace;
         }
         .edit-form {
@@ -346,8 +392,59 @@
         .edit-label {
             font-size: 14px;
             font-weight: 600;
-            color: #333;
+            color: #e0e0e0;
             margin-bottom: 4px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 640px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .stat-card {
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #9e9e9e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #64B5F6;
+            font-family: 'Courier New', monospace;
+        }
+        .history-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .history-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .history-container::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+        .history-container::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        .history-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
@@ -755,7 +852,7 @@
         function App() {
             const [tasks, setTasks] = useState([]);
             const [currentTask, setCurrentTask] = useState(null);
-            const [activeTab, setActiveTab] = useState('tracker');
+            const [viewMode, setViewMode] = useState('daily');
 
             useEffect(() => {
                 const loadedTasks = loadTasks();
@@ -847,31 +944,67 @@
                 }
             };
 
+            const completedTasks = tasks.filter(t => t.status === 'completed');
+            const totalAllTime = completedTasks.reduce((sum, task) => sum + task.elapsedTime, 0);
+
+            const summaryData = useMemo(() => {
+                if (viewMode === 'daily') {
+                    const dailyMap = {};
+
+                    completedTasks.forEach(task => {
+                        const date = formatDate(task.endTime);
+                        if (!dailyMap[date]) {
+                            dailyMap[date] = {
+                                date,
+                                timestamp: task.endTime,
+                                totalTime: 0,
+                                tasks: []
+                            };
+                        }
+                        dailyMap[date].totalTime += task.elapsedTime;
+                        dailyMap[date].tasks.push(task);
+                    });
+
+                    return Object.values(dailyMap).sort((a, b) => b.timestamp - a.timestamp);
+                } else {
+                    const weeklyMap = {};
+
+                    completedTasks.forEach(task => {
+                        const date = new Date(task.endTime);
+                        const weekNum = getWeekNumber(date);
+                        const year = date.getFullYear();
+                        const key = `${year}-W${weekNum}`;
+
+                        if (!weeklyMap[key]) {
+                            const monday = new Date(date);
+                            monday.setDate(date.getDate() - (date.getDay() || 7) + 1);
+
+                            weeklyMap[key] = {
+                                week: `Semana ${weekNum}, ${year}`,
+                                weekStart: formatDate(monday.getTime()),
+                                timestamp: monday.getTime(),
+                                totalTime: 0,
+                                tasks: []
+                            };
+                        }
+                        weeklyMap[key].totalTime += task.elapsedTime;
+                        weeklyMap[key].tasks.push(task);
+                    });
+
+                    return Object.values(weeklyMap).sort((a, b) => b.timestamp - a.timestamp);
+                }
+            }, [completedTasks, viewMode]);
+
             return (
                 <div className="container">
-                    <div className="tab-bar">
-                        <div
-                            className={`tab ${activeTab === 'tracker' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('tracker')}
-                        >
-                            <div className="tab-text">Registro</div>
-                        </div>
-                        <div
-                            className={`tab ${activeTab === 'history' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('history')}
-                        >
-                            <div className="tab-text">Historial</div>
-                        </div>
-                        <div
-                            className={`tab ${activeTab === 'summary' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('summary')}
-                        >
-                            <div className="tab-text">Resumen</div>
-                        </div>
+                    <div className="header">
+                        <div className="app-title">⏱ Registro de Tiempo</div>
+                        <div className="app-subtitle">Gestiona y monitorea tu tiempo de trabajo</div>
                     </div>
 
-                    <div className="content">
-                        {activeTab === 'tracker' && (
+                    <div className="main-content">
+                        {/* Columna izquierda - Temporizador y acciones */}
+                        <div>
                             <TaskTracker
                                 currentTask={currentTask}
                                 onAddTask={addTask}
@@ -879,17 +1012,73 @@
                                 onResumeTask={resumeTask}
                                 onCompleteTask={completeTask}
                             />
-                        )}
-                        {activeTab === 'history' && (
-                            <TaskHistory
-                                tasks={tasks.filter(t => t.status === 'completed')}
-                                onUpdateTask={updateTask}
-                                onDeleteTask={deleteTask}
-                            />
-                        )}
-                        {activeTab === 'summary' && (
-                            <TaskSummary tasks={tasks.filter(t => t.status === 'completed')} />
-                        )}
+                        </div>
+
+                        {/* Columna derecha - Estadísticas e historial */}
+                        <div>
+                            {/* Estadísticas totales */}
+                            <div className="section">
+                                <div className="total-card">
+                                    <div className="total-label">Tiempo Total Registrado</div>
+                                    <div className="total-time">{formatTime(totalAllTime)}</div>
+                                    <div className="total-tasks">
+                                        {completedTasks.length} tarea{completedTasks.length !== 1 ? 's' : ''} completada{completedTasks.length !== 1 ? 's' : ''}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Resumen por período */}
+                            <div className="section">
+                                <div className="section-title">Resumen de Tiempo</div>
+                                <div className="toggle-container">
+                                    <button
+                                        className={`toggle-button ${viewMode === 'daily' ? 'active' : ''}`}
+                                        onClick={() => setViewMode('daily')}
+                                    >
+                                        Diario
+                                    </button>
+                                    <button
+                                        className={`toggle-button ${viewMode === 'weekly' ? 'active' : ''}`}
+                                        onClick={() => setViewMode('weekly')}
+                                    >
+                                        Semanal
+                                    </button>
+                                </div>
+
+                                <div className="history-container">
+                                    {summaryData.length === 0 ? (
+                                        <div className="empty-state">
+                                            <div className="empty-text">No hay datos para mostrar</div>
+                                            <div className="empty-subtext">Completa algunas tareas para ver el resumen</div>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            {summaryData.map((period, index) => (
+                                                <div key={index} className="period-card">
+                                                    <div className="period-header">
+                                                        <div className="period-title">
+                                                            {viewMode === 'daily' ? period.date : period.week}
+                                                        </div>
+                                                        <div className="period-time">{formatTime(period.totalTime)}</div>
+                                                    </div>
+                                                    <div className="period-subtitle">
+                                                        {period.tasks.length} tarea{period.tasks.length !== 1 ? 's' : ''}
+                                                    </div>
+                                                    <div className="tasks-list">
+                                                        {period.tasks.map((task, taskIndex) => (
+                                                            <div key={taskIndex} className="task-item">
+                                                                <div className="task-item-name">• {task.name}</div>
+                                                                <div className="task-item-time">{formatTime(task.elapsedTime)}</div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );

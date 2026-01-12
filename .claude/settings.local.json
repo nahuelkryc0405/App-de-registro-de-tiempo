@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm create:*)",
       "Bash(node --version:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(dir:*)"
     ]
   }
 }
