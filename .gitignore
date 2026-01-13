@@ -1,0 +1,9 @@
+# Archivos temporales de Claude
+tmpclaude-*
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Planes de Claude
+.claude/plans/
