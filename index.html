@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Tiempo</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2364B5F6'/><circle cx='50' cy='50' r='40' fill='%231a1a1a'/><line x1='50' y1='50' x2='50' y2='25' stroke='%2364B5F6' stroke-width='3' stroke-linecap='round'/><line x1='50' y1='50' x2='65' y2='50' stroke='%2364B5F6' stroke-width='3' stroke-linecap='round'/><circle cx='50' cy='50' r='3' fill='%2364B5F6'/></svg>" type="image/svg+xml">
+    <link rel="icon" href="27477801.jpg" type="image/jpeg">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -447,6 +447,21 @@
         .history-container::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        .resume-task-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 8px;
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .resume-task-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -518,6 +533,8 @@
         function TaskTracker({ currentTask, onAddTask, onPauseTask, onResumeTask, onCompleteTask }) {
             const [taskName, setTaskName] = useState('');
             const [currentTime, setCurrentTime] = useState(0);
+            const [showNewTaskForm, setShowNewTaskForm] = useState(false);
+            const [newTaskName, setNewTaskName] = useState('');
 
             useEffect(() => {
                 let interval;
@@ -545,6 +562,14 @@
             const handleKeyPress = (e) => {
                 if (e.key === 'Enter' && taskName.trim() && !currentTask) {
                     handleStartTask();
+                }
+            };
+
+            const handleStartNewTask = () => {
+                if (newTaskName.trim()) {
+                    onAddTask({ name: newTaskName });
+                    setShowNewTaskForm(false);
+                    setNewTaskName('');
                 }
             };
 
@@ -601,6 +626,54 @@
                                     onClick={() => onCompleteTask(currentTask.id)}
                                 >
                                     ✓ Completar
+                                </button>
+                            </div>
+
+                            {/* Botón para iniciar nueva tarea */}
+                            <div style={{marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #333'}}>
+                                <button
+                                    className="button button-start"
+                                    onClick={() => setShowNewTaskForm(true)}
+                                    style={{fontSize: '14px'}}
+                                >
+                                    + Nueva Tarea
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Formulario para nueva tarea */}
+                    {showNewTaskForm && (
+                        <div className="card" style={{marginTop: '16px'}}>
+                            <div className="title" style={{fontSize: '18px'}}>Nueva Tarea</div>
+                            <div className="subtitle" style={{fontSize: '12px'}}>La tarea actual se completará automáticamente</div>
+                            <input
+                                className="input"
+                                placeholder="Nombre de la nueva tarea..."
+                                value={newTaskName}
+                                onChange={(e) => setNewTaskName(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter' && newTaskName.trim()) {
+                                        handleStartNewTask();
+                                    }
+                                }}
+                            />
+                            <div className="button-group">
+                                <button
+                                    className="button button-cancel"
+                                    onClick={() => {
+                                        setShowNewTaskForm(false);
+                                        setNewTaskName('');
+                                    }}
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    className="button button-start"
+                                    onClick={handleStartNewTask}
+                                    disabled={!newTaskName.trim()}
+                                >
+                                    Iniciar
                                 </button>
                             </div>
                         </div>
@@ -870,6 +943,23 @@
             }, [tasks]);
 
             const addTask = (taskData) => {
+                // Auto-completar tarea anterior si existe
+                if (currentTask) {
+                    const now = Date.now();
+                    let totalElapsed = currentTask.elapsedTime;
+
+                    if (currentTask.status === 'running') {
+                        totalElapsed += now - currentTask.startTime;
+                    }
+
+                    updateTask(currentTask.id, {
+                        status: 'completed',
+                        endTime: now,
+                        elapsedTime: totalElapsed
+                    });
+                }
+
+                // Crear nueva tarea
                 const newTask = {
                     id: Date.now().toString(),
                     name: taskData.name,
@@ -916,12 +1006,37 @@
 
             const resumeTask = (taskId) => {
                 const task = tasks.find(t => t.id === taskId);
-                if (task && task.status === 'paused') {
+                if (task && (task.status === 'paused' || task.status === 'completed')) {
+                    // Si hay una tarea activa, completarla primero
+                    if (currentTask && currentTask.id !== taskId) {
+                        const now = Date.now();
+                        let totalElapsed = currentTask.elapsedTime;
+                        if (currentTask.status === 'running') {
+                            totalElapsed += now - currentTask.startTime;
+                        }
+                        updateTask(currentTask.id, {
+                            status: 'completed',
+                            endTime: now,
+                            elapsedTime: totalElapsed
+                        });
+                    }
+
+                    // Reanudar la tarea seleccionada
                     updateTask(taskId, {
                         status: 'running',
                         startTime: Date.now(),
-                        pausedAt: null
+                        pausedAt: null,
+                        endTime: null
                     });
+
+                    // Establecer como tarea activa
+                    const updatedTasks = tasks.map(t =>
+                        t.id === taskId
+                            ? {...t, status: 'running', startTime: Date.now(), pausedAt: null, endTime: null}
+                            : t
+                    );
+                    const reactivatedTask = updatedTasks.find(t => t.id === taskId);
+                    setCurrentTask(reactivatedTask);
                 }
             };
 
@@ -1070,6 +1185,13 @@
                                                             <div key={taskIndex} className="task-item">
                                                                 <div className="task-item-name">• {task.name}</div>
                                                                 <div className="task-item-time">{formatTime(task.elapsedTime)}</div>
+                                                                <button
+                                                                    className="resume-task-btn"
+                                                                    onClick={() => resumeTask(task.id)}
+                                                                    title="Reanudar esta tarea"
+                                                                >
+                                                                    ▶
+                                                                </button>
                                                             </div>
                                                         ))}
                                                     </div>
